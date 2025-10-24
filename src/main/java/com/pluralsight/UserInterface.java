@@ -37,7 +37,7 @@ public class UserInterface {
 	}
 
 	public void processGetAllVehiclesRequest() {
-		
+
 	}
 
 	public void processAddVehicleRequest() {
