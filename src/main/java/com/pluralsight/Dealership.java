@@ -12,7 +12,7 @@ public class Dealership {
 
 
 	// constructor
-	public void dealership(String name, String address, String phoneNumber) {
+	public Dealership(String name, String address, String phoneNumber) {
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
@@ -90,6 +90,11 @@ public class Dealership {
 
 	public void removeVehicle(Vehicle vehicleToRemove) {
 		vehicles.remove(vehicleToRemove);
+	}
+
+	@Override
+	public String toString() {
+		return name + " at " + address + "\nPhone: " + phoneNumber;
 	}
 
 } // Dealership

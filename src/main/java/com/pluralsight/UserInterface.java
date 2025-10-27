@@ -2,7 +2,7 @@ package com.pluralsight;
 
 public class UserInterface {
 
-	Dealership dealership = new Dealership();
+	Dealership dealership = DealershipFileManager.getDealership("dealership.csv");
 
 	public void userInterface() {
 
