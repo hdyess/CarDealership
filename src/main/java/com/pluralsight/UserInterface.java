@@ -47,13 +47,15 @@ public class UserInterface {
 
 
 	// helpers
-	private void displayVehicles(ArrayList<Vehicle> vehiclesToPrint) {
+	private ArrayList<Vehicle> vehiclesToPrint = new ArrayList<>();
+
+	private void displayVehicles() {
 		for(Vehicle v : vehiclesToPrint) {
 			System.out.println(v);
 		}
 	}
 
-	private void loadDealership() {
+	private void loadDealershipFromFile() {
 		this.dealership = DealershipFileManager.getDealership("dealership.csv");
 	}
 
@@ -61,8 +63,7 @@ public class UserInterface {
 	// displays menus
 	public void display() {
 
-		loadDealership();
-
+		loadDealershipFromFile();
 
 		while(menu != null) {
 			switch(menu) {
@@ -101,6 +102,16 @@ public class UserInterface {
 					break;
 				case "av":
 					processAddVehicleRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "rv":
+					processRemoveVehicleRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "ps":
+					processGetByPriceRequest();
 					menu = "home";
 					clearScreen();
 					break;
@@ -202,6 +213,7 @@ public class UserInterface {
 			}
 			if(!vins.contains(Integer.parseInt(lineParsed[0]))) {
 				dealership.addVehicle(new Vehicle(Integer.parseInt(lineParsed[0]), Integer.parseInt(lineParsed[1]), lineParsed[2], lineParsed[3], lineParsed[4], lineParsed[5], Integer.parseInt(lineParsed[6]), Double.parseDouble(lineParsed[7])));
+				printMenuLine("Vehicle added successfully.");
 			}
 		} catch (Exception ex) {
 			System.out.println();
@@ -217,7 +229,31 @@ public class UserInterface {
 	}
 
 	public void processRemoveVehicleRequest() {
+		String statusString = "WARNING, vehicle removal failed. No matching vehicle found.";
+		printMenuBumper();
+		printMenuLine("Enter the VIN of the vehicle you want to remove:");
+		printMenuBumper();
 
+		int vin = Integer.parseInt(getInput.nextLine());
+		clearScreen();
+		try {
+			for (Vehicle v : dealership.getAllVehicles()) {
+				if (v.getVin() == vin) {
+					dealership.removeVehicle(v);
+					statusString = "Vehicles with selected VIN have been removed.";
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println(ex);
+			statusString = "WARNING, vehicle removal failed. Check your CSV file and consider backing it up.";
+		}
+
+		printMenuBumper();
+		printMenuLine(statusString);
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+		getInput.nextLine();
 	}
 
 }// UserInterface
