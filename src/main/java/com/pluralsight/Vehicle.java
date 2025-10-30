@@ -89,8 +89,8 @@ public class Vehicle {
 	//override
 	@Override
 	public String toString() {
-		String returnString = "VIN: %10d |%s %d %s %10s | %s20 | Mileage: %d10 | $%.2f";
-		return String.format(returnString, this.vin, this.color, this.year, this. make, this.model, this.vehicleType, this.odometer, this.price);
+		String returnString = "%-4d | %-4d | %-10s | %-10s | %-10s | %-10s | %-8d | $%-11.2f";
+		return String.format(returnString, this.vin, this.year, this.color, this. make, this.model, this.vehicleType, this.odometer, this.price);
 	}
 
 

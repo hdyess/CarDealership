@@ -33,13 +33,6 @@ public class Dealership {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public ArrayList<Vehicle> getVehicles() {
-		return vehicles;
-	}
-	public void setVehicles(ArrayList<Vehicle> vehicles) {
-		this.vehicles = vehicles;
-	}
-
 
 	// constructor
 	public Dealership(String name, String address, String phoneNumber) {
@@ -48,7 +41,11 @@ public class Dealership {
 		this.phoneNumber = phoneNumber;
 	}
 
-	// get vehicles w/filters
+	// get vehicles
+	public ArrayList<Vehicle> getAllVehicles() {
+		return vehicles;
+	}
+
 	public ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
@@ -109,9 +106,6 @@ public class Dealership {
 		return vehiclesToReturn;
 	}
 
-	public ArrayList<Vehicle> getAllVehicles() {
-		return vehicles;
-	}
 
 	// add and remove vehicles
 	public void addVehicle(Vehicle vehicleToAdd) {

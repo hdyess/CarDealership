@@ -21,7 +21,7 @@ public class DealershipFileManager {
 
 				String[] lineParsed = line.split("\\|");
 				//todo: i swear this can be better i just don't know how
-				returnDealership.addVehicle(new Vehicle(Integer.parseInt(lineParsed[0]), Integer.parseInt(lineParsed[1]), lineParsed[2], lineParsed[3], lineParsed[4], lineParsed[5], Integer.parseInt(lineParsed[6]), Integer.parseInt(lineParsed[7])));
+				returnDealership.addVehicle(new Vehicle(Integer.parseInt(lineParsed[0]), Integer.parseInt(lineParsed[1]), lineParsed[2], lineParsed[3], lineParsed[4], lineParsed[5], Integer.parseInt(lineParsed[6]), Double.parseDouble(lineParsed[7])));
 
 			}
 
@@ -37,17 +37,16 @@ public class DealershipFileManager {
 
 	} // getDealership
 
-	public void saveDealership(Dealership dealershipToSave) {
+	public static void saveDealership(Dealership dealershipToSave) {
 		try {
-
-			FileWriter fileWriter = new FileWriter("inventory.csv");
-			BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+			BufferedWriter buffWriter = new BufferedWriter(new FileWriter("inventory.csv"));
 
 			buffWriter.write(dealershipToSave.getName() + "|" + dealershipToSave.getAddress() + "|" + dealershipToSave.getPhoneNumber());
 			buffWriter.newLine();
 
 			for (Vehicle v : dealershipToSave.getAllVehicles()) {
 				buffWriter.write(v.getVin() + "|" +
+								v.getYear() + "|" +
 								v.getMake() + "|" +
 								v.getModel() + "|" +
 								v.getVehicleType() + "|" +
@@ -56,7 +55,7 @@ public class DealershipFileManager {
 								v.getPrice());
 				buffWriter.newLine();
 			}
-
+			buffWriter.close();
 		} catch (Exception ex) {
 			System.out.println(ex + " Exception handling <3");
 		}
