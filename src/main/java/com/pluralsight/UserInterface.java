@@ -2,8 +2,22 @@ package com.pluralsight;
 
 public class UserInterface {
 
-	Dealership dealership = DealershipFileManager.getDealership("dealership.csv");
+	private Dealership dealership;
 
+	private void initDealership() {
+		this.dealership = DealershipFileManager.getDealership("dealership.csv");
+	}
+
+	private void printMenuBumper() {
+		System.out.println("----------------------------------------------------------------");
+	}
+
+	private void printMenuLine(String line) {
+		System.out.printf("| %60s |\n", line);
+	}
+
+
+	//public
 	public void userInterface() {
 
 	}

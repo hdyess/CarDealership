@@ -16,24 +16,30 @@ public class DealershipFileManager {
 
 			String line;
 			while ((line = buffReader.readLine()) != null) {
+
 				String[] lineParsed = line.split("\\|");
 				//todo: i swear this can be better i just don't know how
 				returnDealership.addVehicle(new Vehicle(Integer.parseInt(lineParsed[0]), Integer.parseInt(lineParsed[1]), lineParsed[2], lineParsed[3], lineParsed[4], lineParsed[5], Integer.parseInt(lineParsed[6]), Integer.parseInt(lineParsed[7])));
+
 			}
 
 			return returnDealership;
 
 		} catch (Exception ex) {
+
 			System.out.println("Error occurred, check your dealership.csv file.");
+
 		}
 
-
-
 		return new Dealership("error", "error", "error");
-	}
+
+	} // getDealership
 
 	public void saveDealership(Dealership dealershipToSave) {
 
-	}
+		
+
+
+	} // saveDealership
 
 }

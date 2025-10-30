@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Dealership {
 
 	//fields
-	String name;
-	String address;
-	String phoneNumber;
-	ArrayList<Vehicle> vehicles = new ArrayList<>();
+	private String name;
+	private String address;
+	private String phoneNumber;
+	private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
 
 	// constructor
@@ -22,7 +22,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.price >= min && v.price <= max) {
+			if (v.getPrice() >= min && v.getPrice() <= max) {
 				vehiclesToReturn.add(v);
 			}
 		}
@@ -32,7 +32,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.make.equalsIgnoreCase(make) && v.model.equalsIgnoreCase(model)) {
+			if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
 				vehiclesToReturn.add(v);
 			}
 		}
@@ -42,7 +42,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByYear(int min, int max) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.year >= min && v.year <= max) {
+			if (v.getYear() >= min && v.getYear() <= max) {
 				vehiclesToReturn.add(v);
 			}
 		}
@@ -52,7 +52,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByColor(String color) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.color.equalsIgnoreCase(color)) {
+			if (v.getColor().equalsIgnoreCase(color)) {
 				vehiclesToReturn.add(v);
 			}
 		}
@@ -62,7 +62,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByMileage(int min, int max) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.odometer >= min && v.odometer <= max) {
+			if (v.getOdometer() >= min && v.getOdometer() <= max) {
 				vehiclesToReturn.add(v);
 			}
 		}
@@ -72,7 +72,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByType(String type) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.vehicleType.equalsIgnoreCase(type)) {
+			if (v.getVehicleType().equalsIgnoreCase(type)) {
 				vehiclesToReturn.add(v);
 			}
 		}
