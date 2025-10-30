@@ -2,12 +2,14 @@ package com.pluralsight;
 
 public class UserInterface {
 
+	// handles this class's dealership
 	private Dealership dealership;
 
 	private void initDealership() {
 		this.dealership = DealershipFileManager.getDealership("dealership.csv");
 	}
 
+	// make ui pretty <3
 	private void printMenuBumper() {
 		System.out.println("----------------------------------------------------------------");
 	}
