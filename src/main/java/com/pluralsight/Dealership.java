@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Dealership {
 
@@ -59,7 +60,7 @@ public class Dealership {
 	public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
 		ArrayList<Vehicle> vehiclesToReturn = new ArrayList<>();
 		for (Vehicle v : vehicles) {
-			if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
+			if (v.getMake().toLowerCase().contains(make.toLowerCase()) || v.getModel().toLowerCase().contains(model.toLowerCase())) {
 				vehiclesToReturn.add(v);
 			}
 		}

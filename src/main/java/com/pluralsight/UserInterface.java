@@ -42,7 +42,6 @@ public class UserInterface {
 		System.out.print("\033\143" + "\n");
 	}
 
-
 	private void displayVehicles(ArrayList<Vehicle> vehiclesToPrint) {
 		for(Vehicle v : vehiclesToPrint) {
 			System.out.println(v);
@@ -50,7 +49,7 @@ public class UserInterface {
 	}
 
 	private void loadDealershipFromFile() {
-		this.dealership = DealershipFileManager.getDealership("dealership.csv");
+		this.dealership = DealershipFileManager.getDealership("inventory.csv");
 	}
 
 
@@ -226,11 +225,13 @@ public class UserInterface {
 		printMenuLine("Please enter make to search (case insensitive):");
 		printMenuBumper();
 		String makeSearch = getInput.nextLine();
+		clearScreen();
 
 		printMenuBumper();
 		printMenuLine("Please enter model to search (case insensitive):");
 		printMenuBumper();
 		String modelSearch = getInput.nextLine();
+		clearScreen();
 
 		printMenuBumper();
 		printMenuLine(String.format("Showing vehicles with make/model: %s/%s", makeSearch, modelSearch));
@@ -248,19 +249,98 @@ public class UserInterface {
 	}
 
 	public void processGetByYearRequest() {
+		printMenuBumper();
+		printMenuLine("Please enter MAXIMUM year:");
+		printMenuBumper();
+		int max = Integer.parseInt(getInput.nextLine());
 
+		printMenuBumper();
+		printMenuLine("Please enter MINIMUM year:");
+		printMenuBumper();
+		int min = Integer.parseInt(getInput.nextLine());
+		clearScreen();
+
+		printMenuBumper();
+		printMenuLine(String.format("Showing vehicles by year range: %d - %d", max, min));
+		printMenuSoftBumper();
+		// 1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getVehiclesByYear(min, max));
+
+		printMenuSoftBumper();
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+
+		getInput.nextLine();
 	}
 
 	public void processGetByColorRequest() {
+		printMenuBumper();
+		printMenuLine("Please enter color to search (case insensitive):");
+		printMenuBumper();
+		String colorSearch = getInput.nextLine();
+		clearScreen();
 
+		printMenuBumper();
+		printMenuLine(String.format("Showing vehicles with color: %s", colorSearch));
+		printMenuSoftBumper();
+
+		// 1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getVehiclesByColor(colorSearch));
+
+		printMenuSoftBumper();
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+
+		getInput.nextLine();
 	}
 
 	public void processGetByMileageRequest() {
+		printMenuBumper();
+		printMenuLine("Please enter MAXIMUM mileage:");
+		printMenuBumper();
+		int max = Integer.parseInt(getInput.nextLine());
 
+		printMenuBumper();
+		printMenuLine("Please enter MINIMUM mileage:");
+		printMenuBumper();
+		int min = Integer.parseInt(getInput.nextLine());
+		clearScreen();
+
+		printMenuBumper();
+		printMenuLine(String.format("Showing vehicles by mileage range: %d - %d", max, min));
+		printMenuSoftBumper();
+		// 1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getVehiclesByMileage(min, max));
+
+		printMenuSoftBumper();
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+
+		getInput.nextLine();
 	}
 
 	public void processGetByVehicleTypeRequest() {
+		printMenuBumper();
+		printMenuLine("Please enter vehicle type to search (EX. dual-prop, turbo-prop, etc.):");
+		printMenuBumper();
+		String typeSearch = getInput.nextLine();
+		clearScreen();
 
+		printMenuBumper();
+		printMenuLine(String.format("Showing vehicles of type: %s", typeSearch));
+		printMenuSoftBumper();
+		//
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getVehiclesByType(typeSearch));
+
+		printMenuSoftBumper();
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+
+		getInput.nextLine();
 	}
 
 	public void processAddVehicleRequest() {
