@@ -3,9 +3,6 @@ package com.pluralsight;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
-import static java.lang.Thread.sleep;
 
 public class UserInterface {
 
@@ -46,10 +43,7 @@ public class UserInterface {
 	}
 
 
-	// helpers
-	private ArrayList<Vehicle> vehiclesToPrint = new ArrayList<>();
-
-	private void displayVehicles() {
+	private void displayVehicles(ArrayList<Vehicle> vehiclesToPrint) {
 		for(Vehicle v : vehiclesToPrint) {
 			System.out.println(v);
 		}
@@ -69,11 +63,9 @@ public class UserInterface {
 			switch(menu) {
 				case "home":
 					printMenuBumper();
-
 					printMenuLine("Welcome to " + dealership.getName() + "!");
 					printMenuLine(dealership.getAddress());
 					printMenuLine(dealership.getPhoneNumber());
-
 					printMenuLine("");
 					printMenuLine("What would you like to do?");
 					printMenuConnector();
@@ -93,11 +85,11 @@ public class UserInterface {
 					printMenuBumper();
 
 					menu = getInput.nextLine().toLowerCase();
-
 					clearScreen();
 					break;
 				case "va":
 					processGetAllVehiclesRequest();
+					menu = "home";
 					clearScreen();
 					break;
 				case "av":
@@ -112,6 +104,31 @@ public class UserInterface {
 					break;
 				case "ps":
 					processGetByPriceRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "ms":
+					processGetByMakeModelRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "ys":
+					processGetByYearRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "cs":
+					processGetByColorRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "os":
+					processGetByMileageRequest();
+					menu = "home";
+					clearScreen();
+					break;
+				case "ts":
+					processGetByVehicleTypeRequest();
 					menu = "home";
 					clearScreen();
 					break;
@@ -165,23 +182,69 @@ public class UserInterface {
 		printMenuBumper();
 		printMenuLine("Showing all vehicles...");
 		printMenuSoftBumper();
-		//[1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00  ]
-		System.out.println("[Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ]");
+
+						  // 1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getAllVehicles());
 
 		printMenuSoftBumper();
 		printMenuLine("Press enter to continue...");
 		printMenuBumper();
 
-		menu = "home";
 		getInput.nextLine();
 	}
 
 	public void processGetByPriceRequest() {
+		printMenuBumper();
+		printMenuLine("Please enter MAXIMUM price:");
+		printMenuBumper();
+		double max = Double.parseDouble(getInput.nextLine());
 
+		printMenuBumper();
+		printMenuLine("Please enter MINIMUM price:");
+		printMenuBumper();
+		double min = Double.parseDouble(getInput.nextLine());
+		clearScreen();
+
+
+		printMenuBumper();
+		printMenuLine(String.format("Showing vehicles in price range: %.2f - %.2f", max, min));
+		printMenuSoftBumper();
+		// 1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getVehiclesByPrice(min, max));
+
+		printMenuSoftBumper();
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+
+		getInput.nextLine();
 	}
 
 	public void processGetByMakeModelRequest() {
+		printMenuBumper();
+		printMenuLine("Please enter make to search (case insensitive):");
+		printMenuBumper();
+		String makeSearch = getInput.nextLine();
 
+		printMenuBumper();
+		printMenuLine("Please enter model to search (case insensitive):");
+		printMenuBumper();
+		String modelSearch = getInput.nextLine();
+
+		printMenuBumper();
+		printMenuLine(String.format("Showing vehicles with make/model: %s/%s", makeSearch, modelSearch));
+		printMenuSoftBumper();
+
+		                     // 1011 | 1920 | Silver     | Lockheed   | Model 10 Electra | Turbo-prop | 875339   | $352947.00
+		System.out.println( "Vin  | Year | Color      | Make       | Model            | Type       | Mileage  | Price(USD)  ");
+		displayVehicles(dealership.getVehiclesByMakeModel(makeSearch, modelSearch));
+
+		printMenuSoftBumper();
+		printMenuLine("Press enter to continue...");
+		printMenuBumper();
+
+		getInput.nextLine();
 	}
 
 	public void processGetByYearRequest() {
@@ -245,7 +308,6 @@ public class UserInterface {
 				}
 			}
 		} catch (Exception ex) {
-			System.out.println(ex);
 			statusString = "WARNING, vehicle removal failed. Check your CSV file and consider backing it up.";
 		}
 

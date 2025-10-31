@@ -39,20 +39,21 @@ public class DealershipFileManager {
 
 	public static void saveDealership(Dealership dealershipToSave) {
 		try {
-			BufferedWriter buffWriter = new BufferedWriter(new FileWriter("inventory.csv"));
+			FileWriter fileWriter = new FileWriter("inventory.csv");
+			BufferedWriter buffWriter = new BufferedWriter(fileWriter);
 
 			buffWriter.write(dealershipToSave.getName() + "|" + dealershipToSave.getAddress() + "|" + dealershipToSave.getPhoneNumber());
 			buffWriter.newLine();
 
 			for (Vehicle v : dealershipToSave.getAllVehicles()) {
-				buffWriter.write(v.getVin() + "|" +
-								v.getYear() + "|" +
-								v.getMake() + "|" +
-								v.getModel() + "|" +
-								v.getVehicleType() + "|" +
-								v.getColor() + "|" +
-								v.getOdometer() + "|" +
-								v.getPrice());
+				buffWriter.write( v.getVin() + "|" +
+						v.getYear() + "|" +
+						v.getColor() + "|" +
+						v.getMake() + "|" +
+						v.getModel() + "|" +
+						v.getVehicleType() + "|" +
+						v.getOdometer() + "|" +
+						v.getPrice());
 				buffWriter.newLine();
 			}
 			buffWriter.close();
